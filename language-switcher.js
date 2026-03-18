@@ -294,7 +294,7 @@ const translations = {
         
         // Signup Page
         'signup-title': 'Създай акаунт',
-        'signup-subtitle': 'Присъедини се към общността и осинови приятел',
+        'signup-subtitle': 'Присъедини се към нас',
         'signup-name': 'Име',
         'signup-email': 'Имейл',
         'signup-password': 'Парола',
