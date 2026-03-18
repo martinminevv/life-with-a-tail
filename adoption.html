@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="adoption.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h1 data-translate="adoption-title">Adopt a Pet</h1>
+        <p data-translate="adoption-subtitle">Give a loving animal a forever home</p>
+    </section>
+
+    <section class="pets-section" id="pets">
+        <div class="section-intro">
+            <h2 class="section-title" data-translate="available-pets">Available for Adoption</h2>
+            <p class="section-description" data-translate="adoption-intro">Meet our wonderful animals waiting for their forever homes. Each one has a unique personality and is ready to fill your life with love and joy.</p>
+        </div>
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all" data-translate="filter-all">All</button>
+            <button class="filter-btn" data-filter="dog" data-translate="filter-dogs">Dogs</button>
+            <button class="filter-btn" data-filter="cat" data-translate="filter-cats">Cats</button>
+        </div>
+        <div class="pets-grid"></div>
+    </section>
+
+    <section class="adoption-process">
+        <h2 class="section-title" data-translate="adoption-process-title">How to Adopt</h2>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 data-translate="adoption-step-1-title">Browse</h3>
+                <p data-translate="adoption-step-1-desc">Explore our available pets and find your perfect match.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 data-translate="adoption-step-2-title">Apply</h3>
+                <p data-translate="adoption-step-2-desc">Fill out our simple adoption application.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 data-translate="adoption-step-3-title">Meet</h3>
+                <p data-translate="adoption-step-3-desc">Visit our shelter to meet your potential new family member.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 data-translate="adoption-step-4-title">Adopt</h3>
+                <p data-translate="adoption-step-4-desc">Complete the adoption paperwork and bring your new companion home.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="adoption-requirements">
+        <div class="requirements-container">
+            <h2 class="section-title" data-translate="adoption-req-title">Adoption Requirements</h2>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <h3 data-translate="adoption-req-1-title">Age Requirement</h3>
+                    <p data-translate="adoption-req-1-desc">Adopters must be at least 21 years old and provide valid identification.</p>
+                </div>
+                <div class="requirement-card">
+                    <h3 data-translate="adoption-req-5-title">Adoption Fee</h3>
+                    <p data-translate="adoption-req-5-desc">Fees range from $50-$200 and cover vaccinations, spaying/neutering, and microchipping.</p>
+                </div>
+                <div class="requirement-card">
+                    <h3 data-translate="adoption-req-6-title">Time Commitment</h3>
+                    <p data-translate="adoption-req-6-desc">Be prepared to provide proper care, attention, and veterinary treatment for the life of your pet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="adoption-faq">
+        <h2 class="section-title" data-translate="adoption-faq-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3 data-translate="adoption-faq-1-q">How long does the adoption process take?</h3>
+                <p data-translate="adoption-faq-1-a">Typically 3-7 days from application to bringing your pet home.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-translate="adoption-faq-2-q">What is included in the adoption fee?</h3>
+                <p data-translate="adoption-faq-2-a">All pets are spayed/neutered, vaccinated, microchipped, and have received a health check.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-translate="adoption-faq-3-q">Can I adopt if I have other pets?</h3>
+                <p data-translate="adoption-faq-3-a">Yes! We encourage meet-and-greets with your current pets to ensure compatibility.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-translate="adoption-faq-4-q">What if the adoption doesn't work out?</h3>
+                <p data-translate="adoption-faq-4-a">We offer a 30-day trial period and will work with you to resolve any issues.</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="adoptModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="color:#0288d1;margin-bottom:20px;" data-translate="modal-title">Adoption Application</h2>
+            <p style="margin-bottom:20px;color:#666;"><span data-translate="modal-text">Fill out the form below to start the adoption process for</span> <strong id="petName"></strong>!</p>
+            <form onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label data-translate="adoption-form-name">Your Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="adoption-form-email">Email Address</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="adoption-form-phone">Phone Number</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="adoption-form-address">Address</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="adoption-form-homeowner">Do you rent or own your home?</label>
+                    <select required>
+                        <option value="" data-translate="adoption-form-select">Select...</option>
+                        <option value="rent" data-translate="adoption-form-rent">Rent</option>
+                        <option value="own" data-translate="adoption-form-own">Own</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-translate="modal-why">Why do you want to adopt?</label>
+                    <textarea rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-translate="modal-submit">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p data-translate="footer-copy">&copy; 2024 Paws & Hearts Animal Shelter. All rights reserved.</p>
+        <p data-translate="adoption-footer-desc">Making tails wag since 2009</p>
+    </footer>
+
+    <script src="nav-responsive.js"></script>
+    <script type="module" src="auth-nav.js"></script>
+    <script src="language-switcher.js"></script>
+    <!-- IMPORTANT: type="module" required for Firebase imports -->
+    <script type="module" src="adoption-script.js"></script>
+</body>
+</html>

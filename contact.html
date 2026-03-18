@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h1 data-translate="contact-page-title">Contact Us</h1>
+        <p data-translate="contact-page-subtitle">Whether you have questions about adoption, volunteering, or just want to say hello, we'd love to hear from you. Our dedicated team is ready to assist you</p>
+    </section>
+
+
+    <section class="contact-main">
+        <div class="contact-grid">
+            <div class="contact-info-section">
+                <h2 class="section-title" data-translate="contact-info-title">Contact Information</h2>
+                
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <h3 data-translate="contact-visit-title">Visit Us</h3>
+                        <p data-translate-html="contact-address">123 Adoption Street<br>Pet City, PC 12345<br>United States</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <h3 data-translate="contact-call-title">Call Us</h3>
+                        <p data-translate-html="contact-phones">Main: (555) 123-4567<br>Adoption: (555) 123-4568<br>Volunteer: (555) 123-4569</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-content">
+                        <h3 data-translate="contact-email-title">Email Us</h3>
+                        <p data-translate-html="contact-emails">General: info@pawsandhearts.org<br>Adoption: adopt@pawsandhearts.org<br>Volunteer: volunteer@pawsandhearts.org</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <h3 data-translate="contact-hours-title">Hours of Operation</h3>
+                        <p data-translate-html="contact-hours-text"><strong>Monday - Friday:</strong> 10:00 AM - 6:00 PM<br>
+                        <strong>Saturday:</strong> 9:00 AM - 5:00 PM<br>
+                        <strong>Sunday:</strong> 11:00 AM - 4:00 PM<br>
+                    </div>
+                </div>
+
+                <div class="social-media">
+                    <h3 data-translate="contact-follow-title">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" class="social-link" data-translate="contact-facebook">Facebook</a>
+                        <a href="https://instagram.com" class="social-link" data-translate="contact-instagram">Instagram</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-section">
+                <h2 class="section-title" data-translate="contact-form-title">Send Us a Message</h2>
+                <form class="contact-form-main" id="contactForm" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <label data-translate="contact-form-name">Your Name</label>
+                        <input type="text" id="cf_name" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="contact-form-email">Email Address</label>
+                        <input type="email" id="cf_email" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="contact-form-phone">Phone Number (Optional)</label>
+                        <input type="tel" id="cf_phone" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="contact-form-subject">Subject</label>
+                        <select id="cf_subject" required>
+                            <option value="" data-translate="contact-form-subject-select">Select a subject...</option>
+                            <option value="adoption" data-translate="contact-form-subject-1">Adoption Inquiry</option>
+                            <option value="volunteer" data-translate="contact-form-subject-2">Volunteer Inquiry</option>
+                            <option value="donation" data-translate="contact-form-subject-3">Donation Question</option>
+                            <option value="general" data-translate="contact-form-subject-4">General Question</option>
+                            <option value="feedback" data-translate="contact-form-subject-5">Feedback</option>
+                            <option value="other" data-translate="contact-form-subject-6">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="contact-form-message">Message</label>
+                        <textarea id="cf_message" rows="6" placeholder="" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" data-translate="contact-form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2908.21637053503!2d23.5567991!3d43.2049509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ab191fa1b62191%3A0xff6ee062d94d6b9f!2sPPMG%20Akad.Ivan%20Tsenov!5e0!3m2!1sen!2sbg!4v1772732018214!5m2!1sen!2sbg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <section class="contact-faq">
+        <h2 class="section-title" data-translate="contact-faq-title">Common Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3 data-translate="contact-faq-1-q">Do I need an appointment to visit?</h3>
+                <p data-translate="contact-faq-1-a">Walk-ins are welcome during our regular hours. However, we recommend scheduling an appointment for adoption consultations to ensure we can give you our full attention.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-translate="contact-faq-2-q">Can I bring my current pet to meet a potential new companion?</h3>
+                <p data-translate="contact-faq-2-a">Yes! We encourage meet-and-greets with your current pets. Please call ahead to arrange a suitable time for introductions.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-translate="contact-faq-3-q">How quickly will I receive a response?</h3>
+                <p data-translate="contact-faq-3-a">We typically respond to emails and phone messages within 24-48 hours during business days. For urgent matters, please call us during our operating hours.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-translate="contact-faq-4-q">Do you accept donations at the shelter?</h3>
+                <p data-translate="contact-faq-4-a">Absolutely! We accept monetary donations, pet supplies, and your time through volunteering. Visit us during open hours or check our website for our donation wishlist.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="emergency-contact">
+        <div class="emergency-box">
+            <h3 data-translate="contact-emergency-title">Emergency Contact</h3>
+            <p data-translate="contact-emergency-desc">If you've found a stray or injured animal, please call our emergency line:</p>
+            <p class="emergency-number">+359111222333</p>
+            <p class="emergency-note" data-translate="contact-emergency-avail">Available 24/7 for animal emergencies</p>
+        </div>
+    </section>
+
+    <footer>
+        <p data-translate="footer-copy">&copy; 2024 Paws & Hearts Animal Shelter. All rights reserved.</p>
+        <p data-translate="footer-desc">Making tails wag since 2009</p>
+    </footer>
+
+    <script src="nav-responsive.js"></script>
+    <script type="module" src="auth-nav.js"></script>
+    <script src="language-switcher.js"></script>
+    <script type="module" src="firebase-bridge.js"></script>
+    <script src="script1.js"></script>
+</body>
+</html>

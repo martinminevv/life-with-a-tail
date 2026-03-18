@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <div class="profile-header-info">
+                <h1 id="profileDisplayName" data-translate="profile-title">My Profile</h1>
+                <p class="profile-email" id="profileEmail"></p>
+                <p class="profile-member-since"><span data-translate="profile-member-since">Member since</span> <span id="profileSince"></span></p>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <button class="profile-tab active" data-tab="info" data-translate="profile-tab-info">My Info</button>
+            <button class="profile-tab" data-tab="favorites" data-translate="profile-tab-favorites">Favorites</button>
+            <button class="profile-tab" data-tab="applications" data-translate="profile-tab-applications">My Applications</button>
+        </div>
+
+        <section class="tab-content active" id="tab-info">
+            <div class="info-card">
+                <h2 data-translate="profile-info-title">Personal Information</h2>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label data-translate="profile-form-name">Name</label>
+                        <input type="text" id="pName" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="profile-form-email">Email</label>
+                        <input type="email" id="pEmail" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="profile-form-phone">Phone Number</label>
+                        <input type="tel" id="pPhone">
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="profile-form-address">Address</label>
+                        <input type="text" id="pAddress">
+                    </div>
+                    <button type="submit" class="submit-btn" data-translate="profile-form-save">Save Changes</button>
+                </form>
+                <div id="profileMsg" class="profile-msg" style="display:none;"></div>
+            </div>
+        </section>
+
+        <section class="tab-content" id="tab-favorites">
+            <div class="favorites-grid" id="favoritesGrid">
+                <p class="empty-state" data-translate="profile-no-favorites">You haven't favorited any pets yet. Browse the adoption page and click the heart icon!</p>
+            </div>
+        </section>
+
+        <section class="tab-content" id="tab-applications">
+            <div class="applications-list" id="applicationsList">
+                <p class="empty-state" data-translate="profile-no-applications">You haven't submitted any adoption applications yet.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p data-translate="footer-copy">&copy; 2024 Paws & Hearts Animal Shelter. All rights reserved.</p>
+        <p data-translate="footer-desc">Finding your perfect best friend</p>
+    </footer>
+
+    <script src="nav-responsive.js"></script>
+    <script type="module" src="auth-nav.js"></script>
+    <script src="language-switcher.js"></script>
+    <!-- IMPORTANT: type="module" is required for Firebase imports -->
+    <script type="module" src="profile-script.js"></script>
+</body>
+</html>

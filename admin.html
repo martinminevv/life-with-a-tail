@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+  <main class="admin-container">
+    <h1 data-translate="admin-title">Animals Management</h1>
+
+    <section id="animalFormSection">
+      <h2 data-translate="admin-form-title">Add / Edit Animal</h2>
+      <form id="animalForm">
+        <input type="hidden" id="animalId">
+        <div class="form-group"><label data-translate="admin-form-name">Name *</label><input id="a_name" required></div>
+        <div class="form-group"><label data-translate="admin-form-breed">Breed *</label><input id="a_breed" required></div>
+        <div class="form-group"><label data-translate="admin-form-species">Species *</label>
+          <select id="a_species" required>
+            <option value="" data-translate="admin-form-species-select">Select species</option>
+            <option value="dog" data-translate="admin-form-species-dog">Dog</option>
+            <option value="cat" data-translate="admin-form-species-cat">Cat</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-translate="admin-form-age">Date of Birth *</label>
+          <div id="dobCalendar" class="dob-calendar"></div>
+          <input type="text" id="a_age_picker" class="dob-calendar-input" tabindex="-1" aria-hidden="true" readonly>
+          <input type="hidden" id="a_age" required>
+        </div>
+        <div class="form-group"><label data-translate="admin-form-gender">Gender *</label>
+          <select id="a_gender" required>
+            <option value="" data-translate="admin-form-gender-select">Select gender</option>
+            <option value="male" data-translate="admin-form-gender-male">Male</option>
+            <option value="female" data-translate="admin-form-gender-female">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-translate="admin-form-image">Image</label>
+          <input type="file" id="a_imageFile" accept="image/*">
+          <div id="imagePreview" style="margin-top:8px;"></div>
+          <input type="hidden" id="a_image">
+        </div>
+        <div class="button-group">
+          <button type="submit" class="submit-btn" data-translate="admin-form-save">Save Animal</button>
+          <button type="button" id="cancelEdit" class="cancel-btn" data-translate="admin-form-cancel">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="animalsList">
+      <h2 data-translate="admin-list-title">Existing Animals</h2>
+      <div id="list"></div>
+    </section>
+
+    <section id="applicationsSection">
+      <h2 data-translate="admin-apps-title">Adoption Applications</h2>
+      <div id="appsList"></div>
+    </section>
+
+    <section id="messagesSection">
+      <h2 data-translate="admin-messages-title">Contact Messages</h2>
+      <div id="messagesList"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- All Firebase logic in one module script -->
+  <script type="module">
+    import {
+      auth, db, storage,
+      getMe,
+      getAnimals, addAnimal, updateAnimal, deleteAnimal,
+      getAllApplications, updateApplicationStatus, deleteApplication,
+      getAllMessages, markMessageRead, deleteMessage
+    } from './firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // ── Guard: only allow admins ──────────────────────────────
+    onAuthStateChanged(auth, async (firebaseUser) => {
+      if (!firebaseUser) { window.location.href = 'home.html'; return; }
+      const user = await getMe();
+      if (!user || user.role !== 'admin') {
+        alert('Admin only');
+        window.location.href = 'home.html';
+        return;
+      }
+      await loadAnimals();
+      await loadApplications();
+      await loadMessages();
+    });
+
+    // ── Date helpers ──────────────────────────────────────────
+    let dobPicker = null;
+
+    function todayIsoDate() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    }
+
+    function normalizeDateForInput(value) {
+      if (!value) return '';
+      const raw = String(value).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+      const parsed = new Date(raw);
+      if (isNaN(parsed.getTime())) return '';
+      return `${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`;
+    }
+
+    function formatDobForList(value) {
+      const n = normalizeDateForInput(value);
+      if (!n) return value || 'N/A';
+      const d = new Date(n + 'T00:00:00');
+      if (isNaN(d.getTime())) return value || 'N/A';
+      return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+    }
+
+    function initializeDobPicker() {
+      const input = document.getElementById('a_age');
+      const pickerInput = document.getElementById('a_age_picker');
+      const calendarContainer = document.getElementById('dobCalendar');
+      if (!input || !pickerInput || !calendarContainer || typeof flatpickr !== 'function') return;
+      dobPicker = flatpickr(pickerInput, {
+        dateFormat: 'Y-m-d', maxDate: null,
+        defaultDate: input.value || null,
+        allowInput: false, inline: true,
+        appendTo: calendarContainer,
+        monthSelectorType: 'dropdown', static: true, disableMobile: true,
+        onChange: (_, dateStr) => { input.value = dateStr || ''; },
+        onReady: (_, __, instance) => { if (input.value) instance.setDate(input.value, false, 'Y-m-d'); }
+      });
+    }
+    initializeDobPicker();
+
+    // ── Animals ───────────────────────────────────────────────
+    async function loadAnimals() {
+      const list = document.getElementById('list');
+      try {
+        const data = await getAnimals();
+        list.innerHTML = '';
+        if (data.length === 0) {
+          list.innerHTML = '<p style="text-align:center;color:#999;">No animals added yet.</p>';
+          return;
+        }
+        data.forEach(a => {
+          const el = document.createElement('div');
+          el.className = 'animal-card';
+          const speciesLabel = a.species === 'cat' ? '🐱' : '🐶';
+          el.innerHTML = `
+            <div class="animal-card-content">
+              <strong>${a.name}</strong> ${speciesLabel} — ${a.breed} — DOB: ${formatDobForList(a.age)} — ${a.gender}
+              ${a.image ? `<div class="animal-image"><img src="${a.image}" alt="${a.name}" style="max-width:100px;max-height:100px;"></div>` : ''}
+            </div>
+            <div class="animal-actions">
+              <button data-id="${a.id}" class="edit btn-edit">Edit</button>
+              <button data-id="${a.id}" class="del btn-delete">Delete</button>
+            </div>`;
+          list.appendChild(el);
+        });
+        document.querySelectorAll('.edit').forEach(btn => btn.addEventListener('click', editAnimal));
+        document.querySelectorAll('.del').forEach(btn => btn.addEventListener('click', handleDeleteAnimal));
+      } catch (err) {
+        console.error('Error loading animals:', err);
+        list.innerHTML = '<p style="color:red;">Error loading animals</p>';
+      }
+    }
+
+    async function editAnimal(e) {
+      const id = e.target.dataset.id;
+      const all = await getAnimals();
+      const a = all.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('animalId').value = a.id;
+      document.getElementById('a_name').value = a.name;
+      document.getElementById('a_breed').value = a.breed;
+      document.getElementById('a_species').value = a.species || 'dog';
+      const normalizedDob = normalizeDateForInput(a.age);
+      document.getElementById('a_age').value = normalizedDob;
+      if (dobPicker) dobPicker.setDate(normalizedDob || null, false, 'Y-m-d');
+      document.getElementById('a_gender').value = a.gender;
+      document.getElementById('a_image').value = a.image || '';
+      document.getElementById('a_imageFile').value = '';
+      document.getElementById('imagePreview').innerHTML = a.image
+        ? `<img src="${a.image}" style="max-width:120px;max-height:120px;border-radius:8px;"><br><small>Current image (choose a new file to replace)</small>`
+        : '';
+      document.getElementById('animalFormSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function handleDeleteAnimal(e) {
+      if (!confirm('Are you sure you want to delete this animal?')) return;
+      try {
+        await deleteAnimal(e.target.dataset.id);
+        alert('Animal deleted successfully');
+        await loadAnimals();
+      } catch (err) { alert('Error deleting animal: ' + err.message); }
+    }
+
+    document.getElementById('a_imageFile').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        document.getElementById('imagePreview').innerHTML = `<img src="${ev.target.result}" style="max-width:120px;max-height:120px;border-radius:8px;">`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('animalForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('animalId').value;
+      const selectedDob = normalizeDateForInput(document.getElementById('a_age').value);
+      if (!selectedDob) return alert('Please select a valid date of birth.');
+      if (selectedDob > todayIsoDate()) return alert('Date of birth cannot be in the future.');
+
+      const data = {
+        name: document.getElementById('a_name').value,
+        breed: document.getElementById('a_breed').value,
+        age: selectedDob,
+        gender: document.getElementById('a_gender').value,
+        species: document.getElementById('a_species').value,
+        description: '',
+        image: document.getElementById('a_image').value
+      };
+      const fileInput = document.getElementById('a_imageFile');
+      const imageFile = fileInput.files.length > 0 ? fileInput.files[0] : null;
+
+      try {
+        if (id) await updateAnimal(id, data, imageFile);
+        else await addAnimal(data, imageFile);
+        alert(id ? 'Animal updated successfully!' : 'Animal added successfully!');
+        document.getElementById('animalForm').reset();
+        document.getElementById('animalId').value = '';
+        document.getElementById('imagePreview').innerHTML = '';
+        if (dobPicker) dobPicker.clear();
+        await loadAnimals();
+      } catch (err) { alert('Error saving animal: ' + err.message); }
+    });
+
+    document.getElementById('cancelEdit').addEventListener('click', () => {
+      document.getElementById('animalForm').reset();
+      document.getElementById('animalId').value = '';
+      document.getElementById('imagePreview').innerHTML = '';
+      if (dobPicker) dobPicker.clear();
+    });
+
+    // ── Applications ──────────────────────────────────────────
+    async function loadApplications() {
+      const list = document.getElementById('appsList');
+      try {
+        const apps = await getAllApplications();
+        if (apps.length === 0) {
+          list.innerHTML = '<p style="text-align:center;color:#999;">No adoption applications yet.</p>';
+          return;
+        }
+        list.innerHTML = '';
+        const statusColors = { pending: '#f9a825', reviewing: '#1976d2', approved: '#2e7d32', declined: '#c62828' };
+        apps.forEach(ap => {
+          const el = document.createElement('div');
+          el.className = 'animal-card';
+          const date = ap.created_at?.toDate ? ap.created_at.toDate().toLocaleDateString() : new Date(ap.created_at).toLocaleDateString();
+          const color = statusColors[ap.status] || '#666';
+          el.innerHTML = `
+            <div class="animal-card-content">
+              <strong>${ap.animal_name || ap.animal_id}</strong> — ${ap.user_name || 'N/A'} (${ap.user_email || ap.user_id})
+              ${ap.user_phone ? ' — Tel: ' + ap.user_phone : ''}
+              <div style="margin-top:4px;color:#888;font-size:13px;">${date}${ap.message ? ' — "' + ap.message + '"' : ''}</div>
+            </div>
+            <div class="animal-actions" style="align-items:center;gap:8px;">
+              <span style="font-weight:600;color:${color};text-transform:capitalize;">${ap.status}</span>
+              <select data-app-id="${ap.id}" class="status-select" style="padding:6px 10px;border-radius:8px;border:1px solid #ddd;font-size:13px;">
+                <option value="pending"   ${ap.status==='pending'   ?'selected':''}>Pending</option>
+                <option value="reviewing" ${ap.status==='reviewing' ?'selected':''}>Reviewing</option>
+                <option value="approved"  ${ap.status==='approved'  ?'selected':''}>Approved</option>
+                <option value="declined"  ${ap.status==='declined'  ?'selected':''}>Declined</option>
+              </select>
+              <button class="btn-edit update-status-btn"  data-app-id="${ap.id}">Update</button>
+              <button class="btn-delete delete-app-btn" data-app-id="${ap.id}">Delete</button>
+            </div>`;
+          list.appendChild(el);
+        });
+
+        document.querySelectorAll('.update-status-btn').forEach(btn => {
+          btn.addEventListener('click', async function() {
+            const appId = this.dataset.appId;
+            const newStatus = document.querySelector(`.status-select[data-app-id="${appId}"]`).value;
+            try {
+              await updateApplicationStatus(appId, newStatus);
+              alert('Status updated!');
+              await loadApplications();
+            } catch (err) { alert('Error: ' + err.message); }
+          });
+        });
+
+        document.querySelectorAll('.delete-app-btn').forEach(btn => {
+          btn.addEventListener('click', async function() {
+            if (!confirm('Delete this application?')) return;
+            try {
+              await deleteApplication(this.dataset.appId);
+              await loadApplications();
+            } catch (err) { alert('Error: ' + err.message); }
+          });
+        });
+      } catch (err) { console.error('Error loading applications:', err); }
+    }
+
+    // ── Messages ──────────────────────────────────────────────
+    async function loadMessages() {
+      const list = document.getElementById('messagesList');
+      try {
+        const msgs = await getAllMessages();
+        if (msgs.length === 0) {
+          list.innerHTML = '<p style="text-align:center;color:#999;">No contact messages yet.</p>';
+          return;
+        }
+        list.innerHTML = '';
+        const subjectLabels = {
+          adoption: 'Adoption Inquiry', volunteer: 'Volunteer Inquiry',
+          donation: 'Donation Question', general: 'General Question',
+          feedback: 'Feedback', other: 'Other'
+        };
+        msgs.forEach(msg => {
+          const el = document.createElement('div');
+          el.className = 'message-card' + (msg.is_read ? '' : ' unread');
+          const date = msg.created_at?.toDate ? msg.created_at.toDate().toLocaleDateString() : new Date(msg.created_at).toLocaleDateString();
+          const time = msg.created_at?.toDate ? msg.created_at.toDate().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+          el.innerHTML = `
+            <div class="message-header">
+              <div class="message-sender">
+                <strong>${msg.name}</strong>
+                <span class="message-email">${msg.email}</span>
+                ${msg.phone ? '<span class="message-phone">📞 ' + msg.phone + '</span>' : ''}
+              </div>
+              <div class="message-meta">
+                ${!msg.is_read ? '<span class="badge-new">NEW</span>' : ''}
+                <span class="message-date">${date} ${time}</span>
+              </div>
+            </div>
+            <div class="message-subject"><strong>Subject:</strong> ${subjectLabels[msg.subject] || msg.subject || 'N/A'}</div>
+            <div class="message-body">${msg.message}</div>
+            <div class="message-actions">
+              ${!msg.is_read ? `<button class="btn-edit mark-read-btn" data-msg-id="${msg.id}">✓ Mark Read</button>` : '<span style="color:#2e7d32;font-size:13px;">✓ Read</span>'}
+              <button class="btn-delete delete-msg-btn" data-msg-id="${msg.id}">Delete</button>
+            </div>`;
+          list.appendChild(el);
+        });
+
+        document.querySelectorAll('.mark-read-btn').forEach(btn => {
+          btn.addEventListener('click', async function() {
+            try {
+              await markMessageRead(this.dataset.msgId);
+              await loadMessages();
+            } catch (err) { alert('Error: ' + err.message); }
+          });
+        });
+
+        document.querySelectorAll('.delete-msg-btn').forEach(btn => {
+          btn.addEventListener('click', async function() {
+            if (!confirm('Delete this message?')) return;
+            try {
+              await deleteMessage(this.dataset.msgId);
+              await loadMessages();
+            } catch (err) { alert('Error: ' + err.message); }
+          });
+        });
+      } catch (err) { console.error('Error loading messages:', err); }
+    }
+  </script>
+
+  <script src="nav-responsive.js"></script>
+  <script type="module" src="auth-nav.js"></script>
+  <script src="language-switcher.js"></script>
+</body>
+</html>

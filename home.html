@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-banner" id="home" style="background-image: url('images/background.jpg');">
+        <div class="hero-content">
+            <h1 data-translate="hero-title">Живот с опашка</h1>
+            <h2 data-translate="hero-subtitle">Намери своя опашат приятел</h2>
+            <p data-translate="hero-desc">Всеки домашен любимец заслуважа любящ дом</p>
+            <button class="cta-button" data-translate="hero-btn" onclick="scrollToPets()">Научи повече</button>
+        </div>
+    </section>
+
+    <section class="pets-section" id="pets">
+        <div class="pets-content">
+            <div class="pet-image">
+                <img src="images/adoptnow.jpg" alt="Dog for adoption">
+            </div>
+            <div class="pet-text">
+                <h2 data-translate="pets-title">Осинови си домашен любимец</h2>
+                <p data-translate="pets-intro">Присъедини се към нашия отдаден екип и помогни на животинско място да намерят своя вечен дом. Всеки домашен любимец заслужава любящ дом и грижа, а ти можеш да бъдеш този човек!</p>
+                <ul class="pet-list">
+                    <li data-translate="pets-li-1">Получи вярен и любящ приятел на цял живот</li>
+                    <li data-translate="pets-li-2">Подобри твоето психическо и физическо здравје</li>
+                    <li data-translate="pets-li-3">Кучетата помагат да намалиш стреса и тревожността</li>
+                    <li data-translate="pets-li-4">Участвай в спасяването на животинско място</li>
+                    <li data-translate="pets-li-5">Получи безусловна любов и верност</li>
+                    <li data-translate="pets-li-6">Направи разлика в живота на едно животинско място</li>
+                </ul>
+                <a href="adoption.html" class="cta-button" data-translate="pets-btn">Осинови сега</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section" id="about">
+        <h2 class="section-title" data-translate="stats-title">Нашето въздействие</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" data-target="1250">0</div>
+                <div class="stat-label" data-translate="stats-1-label">Осиновени животни</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="13">1</div>
+                <div class="stat-label" data-translate="stats-2-label">Благотворителни кампании</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="85" data-suffix="%">0</div>
+                <div class="stat-label" data-translate="stats-3-label">Успешно осиновяване</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label" data-translate="stats-4-label">Години на пазара</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="volunteer-section">
+        <div class="volunteer-content">
+            <div class="volunteer-text">
+                <h2 data-translate="vol-title">Стани доброволец</h2>
+                <p data-translate="vol-desc">Присъедини се към нашия отдаден екип от доброволци и направи разлика в живота на животните. Независимо дали можеш да отделиш няколко часа седмично или само от време на време през уикендите, твоята помощ е от значение.</p>
+                <ul class="volunteer-list">
+                    <li data-translate="vol-li-1">Разходи куче</li>
+                    <li data-translate="vol-li-2">Помогни с храненето и грижата</li>
+                    <li data-translate="vol-li-3">Подпомагане на събития за осиновяване</li>
+                    <li data-translate="vol-li-4">Временно отглеждане на домашни любимци в твоя дом</li>
+                </ul>
+                <button class="cta-button" data-translate="vol-btn" onclick="window.location.href='volunteer.html'">Повече информация</button>
+            </div>
+            <div class="volunteer-image">
+                <img src="images/walking.jpg" alt="Volunteers with pets">
+            </div>
+        </div>
+    </section>
+
+    <section class="donation-section">
+        <div class="donation-content">
+            <h2 data-translate="donation-title">Support Our Mission</h2>
+            <p data-translate="donation-desc">Your generous donations help us provide food, medical care, and shelter to animals in need. Every contribution makes a difference in saving lives.</p>
+            <div class="donation-options">
+                <div class="donation-card">
+                    <h3>€25</h3>
+                    <p data-translate="donation-25">Provides food for one pet for a week</p>
+                    <button class="donate-btn" data-translate="donation-btn" onclick="window.location.href='https://www.gofundme.com'">Donate</button>
+                </div>
+                <div class="donation-card featured">
+                    <h3>€100</h3>
+                    <p data-translate="donation-100">Covers a veterinary check-up</p>
+                    <button class="donate-btn" data-translate="donation-btn" onclick="window.location.href='https://www.gofundme.com'">Donate</button>
+                </div>
+                <div class="donation-card">
+                    <h3>€250</h3>
+                    <p data-translate="donation-250">Takes care of a pet for a month</p>
+                    <button class="donate-btn" data-translate="donation-btn" onclick="window.location.href='https://www.gofundme.com'">Donate</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials-section">
+        <h2 class="section-title" data-translate="testimonials-title">Отзиви</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-translate="testimonial-text-1">"Adopting Max was the best decision we ever made. He's brought so much joy to our family. The staff at Paws & Hearts were incredibly helpful throughout the entire process."</p>
+                <div class="testimonial-author">
+                    <strong data-translate="testimonial-author-1">Sarah Johnson</strong>
+                    <span data-translate="testimonial-date-1">Adopted Max in 2023</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-translate="testimonial-text-2">"Luna has been the perfect addition to our home. She's gentle, loving, and gets along great with our kids. Thank you Paws & Hearts for matching us with our perfect companion!"</p>
+                <div class="testimonial-author">
+                    <strong data-translate="testimonial-author-2">Michael Chen</strong>
+                    <span data-translate="testimonial-date-2">Adopted Luna in 2024</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-translate="testimonial-text-3">"The adoption process was smooth and professional. They really care about finding the right homes for their animals. Buddy has become my best friend and running partner."</p>
+                <div class="testimonial-author">
+                    <strong data-translate="testimonial-author-3">Emma Rodriguez</strong>
+                    <span data-translate="testimonial-date-3">Adopted Buddy in 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p data-translate="footer-copy">&copy; 2026 зооприют "Живот с опашка"</p>
+        <p data-translate="footer-desc">Намираме вашия най-добър приятел</p>
+    </footer>
+
+    <script src="nav-responsive.js"></script>
+    <script type="module" src="auth-nav.js"></script>
+    <script src="language-switcher.js"></script>
+    <script src="script1.js"></script>
+</body>
+</html>

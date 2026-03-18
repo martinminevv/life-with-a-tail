@@ -1,0 +1,140 @@
+/* AUTH PAGE STYLES (Login & Signup) */
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.auth-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #eaf6ff 0%, #f8feff 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-page footer {
+    display: none;
+}
+
+.auth-container {
+    width: 420px;
+    max-width: calc(100% - 40px);
+    margin: 80px auto 60px;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 28px 28px;
+    border-radius: 14px;
+    border: 1px solid rgba(2, 136, 209, 0.06);
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.auth-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.auth-brand h1 {
+    margin: 0;
+    color: #0288d1;
+    font-size: 22px;
+}
+
+.auth-sub {
+    margin: 0;
+    color: #6b7c85;
+    font-size: 14px;
+}
+
+.auth-error {
+    background: #ffecec;
+    color: #c40000;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(196, 0, 0, 0.08);
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-container .form-group label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="email"],
+.auth-container input[type="password"],
+.auth-container input[type="checkbox"],
+.auth-container textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e1f2fd;
+    background: #fbfeff;
+    font-size: 15px;
+}
+
+.auth-container input[type="checkbox"] {
+    width: auto;
+    padding: 0;
+    accent-color: #0288d1;
+    cursor: pointer;
+}
+
+.remember-me-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 12px;
+    background: #f0f8fc;
+    border: 1px solid #b3e5fc;
+    border-radius: 8px;
+}
+
+.remember-me-group label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0288d1;
+    cursor: pointer;
+    user-select: none;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 12px;
+    color: #666;
+}
+
+.auth-footer a {
+    color: #0288d1;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 20px;
+        margin: 12px 12px 60px;
+    }
+    
+    .auth-page {
+        padding-top: 60px;
+    }
+}

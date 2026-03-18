@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+  <main class="auth-container">
+    <div class="auth-brand">
+      <img src="images/logo.png" class="auth-logo" alt="Paws & Hearts logo">
+      <div>
+        <h1>Create account</h1>
+        <p class="auth-sub">Join the community and adopt a friend</p>
+      </div>
+    </div>
+
+    <div id="error" class="auth-error" style="display:none;"></div>
+
+    <form id="signupForm" novalidate>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+      </div>
+      <button type="submit" class="submit-btn">Sign Up</button>
+    </form>
+
+    <div class="auth-footer">Already have an account? <a href="login.html">Log in</a></div>
+  </main>
+
+  <script type="module">
+    import { signup } from './firebase.js';
+
+    const showError = (msg) => {
+      const e = document.getElementById('error');
+      e.textContent = msg || '';
+      e.style.display = msg ? 'block' : 'none';
+    };
+
+    function friendlyError(code) {
+      switch (code) {
+        case 'auth/email-already-in-use': return 'This email is already registered.';
+        case 'auth/invalid-email':        return 'Please enter a valid email address.';
+        case 'auth/weak-password':        return 'Password must be at least 6 characters.';
+        default:                          return 'Signup failed. Please try again.';
+      }
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showError('');
+      const name     = document.getElementById('name').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) return showError('Please enter email and password.');
+      try {
+        await signup(name, email, password);
+        window.location.href = 'profile.html';
+      } catch (err) {
+        showError(friendlyError(err.code));
+      }
+    });
+  </script>
+
+  <script src="nav-responsive.js"></script>
+  <script type="module" src="auth-nav.js"></script>
+  <script src="language-switcher.js"></script>
+</body>
+</html>

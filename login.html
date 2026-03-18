@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живот с опашка</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="language-switcher">
+                <button class="lang-btn lang-active" data-lang="bg" title="Български">BG</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <div class="logo">
+                <a href="home.html" class="logo-link">
+                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <span data-translate="logo">Живот с опашка</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" data-translate="nav-home">Начало</a></li>
+                <li><a href="adoption.html" data-translate="nav-adoption">Осинови</a></li>
+                <li><a href="volunteer.html" data-translate="nav-volunteer">Доброволчество</a></li>
+                <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+                    <img src="images/login.png" class="auth-user" alt="Log in">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+  <main class="auth-container">
+    <div class="auth-brand">
+      <img src="images/logo.png" class="auth-logo" alt="Paws & Hearts logo">
+      <div>
+        <h1 data-translate="login-welcome">Welcome back</h1>
+        <p class="auth-sub" data-translate="login-subtitle">Log in to your account</p>
+      </div>
+    </div>
+
+    <div id="error" class="auth-error" style="display:none;"></div>
+
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="email" data-translate="login-email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password" data-translate="login-password">Password</label>
+        <input type="password" id="password" required>
+      </div>
+      <div class="remember-me-group">
+        <input type="checkbox" id="rememberMe">
+        <label for="rememberMe" data-translate="login-remember">Remember me</label>
+      </div>
+      <button type="submit" class="submit-btn" data-translate="login-submit">Log In</button>
+    </form>
+
+    <div class="auth-footer">
+      <span data-translate="login-no-account">Don't have an account?</span>
+      <a href="signup.html" data-translate="login-signup-link">Sign up</a>
+    </div>
+  </main>
+
+  <script type="module">
+    import { login, getMe } from './firebase.js';
+
+    const showError = (msg) => {
+      const e = document.getElementById('error');
+      e.textContent = msg || '';
+      e.style.display = msg ? 'block' : 'none';
+    };
+
+    // Firebase error codes → friendly messages
+    function friendlyError(code) {
+      switch (code) {
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+          return 'Invalid email or password.';
+        case 'auth/too-many-requests':
+          return 'Too many attempts. Please try again later.';
+        case 'auth/invalid-email':
+          return 'Please enter a valid email address.';
+        default:
+          return 'Login failed. Please try again.';
+      }
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showError('');
+
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) return showError('Please enter your email and password.');
+
+      try {
+        await login(email, password);
+
+        // Fetch role from Firestore to decide where to redirect
+        const user = await getMe();
+        if (user?.role === 'admin') window.location.href = 'admin.html';
+        else window.location.href = 'profile.html';
+
+      } catch (err) {
+        showError(friendlyError(err.code));
+      }
+    });
+  </script>
+
+  <script src="nav-responsive.js"></script>
+  <script type="module" src="auth-nav.js"></script>
+  <script src="language-switcher.js"></script>
+</body>
+</html>
