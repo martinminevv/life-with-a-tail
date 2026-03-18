@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: life-with-a-tail
+    env: static
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /home.html
