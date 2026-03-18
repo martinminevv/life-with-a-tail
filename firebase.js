@@ -5,7 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
 
 // ─── Init ────────────────────────────────────────────────────
 const firebaseConfig = {
@@ -21,7 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db   = getFirestore(app);
-export const storage = getStorage(app);
+
 
 // ─── Helpers ─────────────────────────────────────────────────
 function currentUID() {
@@ -30,10 +30,17 @@ function currentUID() {
   return u.uid;
 }
 
-async function uploadImage(file) {
-  const storageRef = ref(storage, `animals/${Date.now()}-${file.name}`);
-  await uploadBytes(storageRef, file);
-  return await getDownloadURL(storageRef);
+// Convert image file to Base64 string (stored in Firestore, no Storage needed)
+function uploadImage(file) {
+  return new Promise((resolve, reject) => {
+    if (file.size > 500 * 1024) {
+      console.warn('Image is large (>500KB). Consider compressing it first.');
+    }
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 // ─── AUTH ─────────────────────────────────────────────────────
