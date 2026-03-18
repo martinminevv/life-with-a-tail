@@ -99,7 +99,7 @@
   <!-- All Firebase logic in one module script -->
   <script type="module">
     import {
-      auth, db, storage,
+      auth,
       getMe,
       getAnimals, addAnimal, updateAnimal, deleteAnimal,
       getAllApplications, updateApplicationStatus, deleteApplication,
@@ -116,6 +116,7 @@
         window.location.href = 'home.html';
         return;
       }
+      initializeDobPicker();
       await loadAnimals();
       await loadApplications();
       await loadMessages();
@@ -161,8 +162,6 @@
         onReady: (_, __, instance) => { if (input.value) instance.setDate(input.value, false, 'Y-m-d'); }
       });
     }
-    initializeDobPicker();
-
     // ── Animals ───────────────────────────────────────────────
     async function loadAnimals() {
       const list = document.getElementById('list');

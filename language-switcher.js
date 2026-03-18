@@ -292,6 +292,16 @@ const translations = {
         'contact-emergency-desc': 'Ако си намерил/а изгубено или ранено животно, моля, свържете се с нас на спешен телефон:',
         'contact-emergency-avail': 'Достъпно 24/7 за спешни случаи с животни',
         
+        // Signup Page
+        'signup-title': 'Създай акаунт',
+        'signup-subtitle': 'Присъедини се към общността и осинови приятел',
+        'signup-name': 'Име',
+        'signup-email': 'Имейл',
+        'signup-password': 'Парола',
+        'signup-submit': 'Регистрирай се',
+        'signup-have-account': 'Вече имаш акаунт?',
+        'signup-login-link': 'Влез',
+
         // Login Page
         'login-welcome': 'Добре дошъл/а отново',
         'login-subtitle': 'Влез в твоя акаунт',
@@ -650,6 +660,16 @@ const translations = {
         'contact-emergency-desc': 'If you\'ve found a stray or injured animal, please call our emergency line:',
         'contact-emergency-avail': 'Available 24/7 for animal emergencies',
         
+        // Signup Page
+        'signup-title': 'Create account',
+        'signup-subtitle': 'Join the community and adopt a friend',
+        'signup-name': 'Name',
+        'signup-email': 'Email',
+        'signup-password': 'Password',
+        'signup-submit': 'Sign Up',
+        'signup-have-account': 'Already have an account?',
+        'signup-login-link': 'Log in',
+
         // Login Page
         'login-welcome': 'Welcome back',
         'login-subtitle': 'Log in to your account',

@@ -39,8 +39,8 @@
     <div class="auth-brand">
       <img src="images/logo.png" class="auth-logo" alt="Paws & Hearts logo">
       <div>
-        <h1>Create account</h1>
-        <p class="auth-sub">Join the community and adopt a friend</p>
+        <h1 data-translate="signup-title">Create account</h1>
+        <p class="auth-sub" data-translate="signup-subtitle">Join the community and adopt a friend</p>
       </div>
     </div>
 
@@ -48,57 +48,52 @@
 
     <form id="signupForm" novalidate>
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name" data-translate="signup-name">Name</label>
         <input type="text" id="name">
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email" data-translate="signup-email">Email</label>
         <input type="email" id="email" required>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password" data-translate="signup-password">Password</label>
         <input type="password" id="password" required>
       </div>
-      <button type="submit" class="submit-btn">Sign Up</button>
+      <button type="submit" class="submit-btn" data-translate="signup-submit">Sign Up</button>
     </form>
 
-    <div class="auth-footer">Already have an account? <a href="login.html">Log in</a></div>
+    <div class="auth-footer"><span data-translate="signup-have-account">Already have an account?</span> <a href="login.html" data-translate="signup-login-link">Log in</a></div>
   </main>
 
-  <script type="module">
-    import { signup } from './firebase.js';
-
+  <script>
     const showError = (msg) => {
       const e = document.getElementById('error');
       e.textContent = msg || '';
       e.style.display = msg ? 'block' : 'none';
     };
 
-    function friendlyError(code) {
-      switch (code) {
-        case 'auth/email-already-in-use': return 'This email is already registered.';
-        case 'auth/invalid-email':        return 'Please enter a valid email address.';
-        case 'auth/weak-password':        return 'Password must be at least 6 characters.';
-        default:                          return 'Signup failed. Please try again.';
-      }
-    }
-
     document.getElementById('signupForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       showError('');
-      const name     = document.getElementById('name').value.trim();
-      const email    = document.getElementById('email').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       if (!email || !password) return showError('Please enter email and password.');
       try {
-        await signup(name, email, password);
-        window.location.href = 'profile.html';
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+          credentials: 'include'
+        });
+        const data = await res.json();
+        if (!res.ok) return showError(data.error || 'Signup failed');
+        window.location.href = '/profile.html';
       } catch (err) {
-        showError(friendlyError(err.code));
+        showError('Network error. Please try again.');
       }
     });
   </script>
-
   <script src="nav-responsive.js"></script>
   <script type="module" src="auth-nav.js"></script>
   <script src="language-switcher.js"></script>
