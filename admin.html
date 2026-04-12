@@ -29,7 +29,8 @@
                 <li><a href="contact.html" data-translate="nav-contact">Контакти</a></li>
             </ul>
             <div class="nav-auth">
-                <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
+               <button class="theme-toggle" onclick="toggleTheme()" title="Switch theme">🌙</button>  
+              <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
                     <img src="images/login.png" class="auth-user" alt="Log in">
                 </a>
             </div>
@@ -396,6 +397,7 @@
     }
   </script>
 
+  <script src="theme-switcher.js"></script>
   <script src="nav-responsive.js"></script>
   <script type="module" src="auth-nav.js"></script>
   <script src="language-switcher.js"></script>

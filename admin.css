@@ -1,409 +1,136 @@
-/* ADMIN PAGE STYLES */
+/* ADMIN PAGE */
 
-.admin-container {
-    max-width: 1200px;
-    margin: 80px auto;
-    padding: 0 30px;
-}
-
-.admin-container h1 {
-    font-size: 42px;
-    color: #0288d1;
-    margin-bottom: 50px;
-    text-align: center;
-}
-
-.admin-container h2 {
-    font-size: 28px;
-    color: #0288d1;
-    margin-bottom: 30px;
-    margin-top: 50px;
-}
+.admin-container { max-width: 1200px; margin: 76px auto; padding: 0 28px; }
+.admin-container h1 { font-size: 40px; color: var(--accent); margin-bottom: 46px; text-align: center; }
+.admin-container h2 { font-size: 26px; color: var(--accent); margin-bottom: 28px; margin-top: 46px; }
 
 #animalFormSection {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    margin-bottom: 60px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    background: var(--card-bg); padding: 36px; border-radius: 18px;
+    box-shadow: var(--shadow); margin-bottom: 56px;
+    max-width: 580px; margin-left: auto; margin-right: auto;
+    transition: background 0.3s;
 }
 
-#animalForm {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#animalForm .form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-#animalForm label {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
-}
+#animalForm { display: flex; flex-direction: column; gap: 18px; }
+#animalForm .form-group { display: flex; flex-direction: column; }
+#animalForm label { font-weight: 600; color: var(--text); margin-bottom: 7px; font-size: 14px; }
 
 #animalForm input:not(.flatpickr-input):not(.cur-year),
 #animalForm textarea,
 #animalForm select:not(.flatpickr-monthDropdown-months) {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #b3e5fc;
-    border-radius: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
+    width: 100%; padding: 11px 13px;
+    border: 2px solid var(--border); border-radius: 10px;
+    font-size: 15px; font-family: inherit;
+    background: var(--input-bg); color: var(--text);
+    transition: border-color 0.25s, background 0.3s;
 }
-
 #animalForm input:not(.flatpickr-input):not(.cur-year):focus,
 #animalForm textarea:focus,
 #animalForm select:not(.flatpickr-monthDropdown-months):focus {
-    outline: none;
-    border-color: #4fc3f7;
+    outline: none; border-color: var(--accent-pale);
 }
 
-#animalForm .button-group {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
+#animalForm .button-group { display: flex; gap: 14px; margin-top: 8px; }
 
-.dob-calendar {
-    width: fit-content;
-}
-
-.dob-calendar-input,
-.dob-calendar .flatpickr-input {
-    display: none !important;
-}
+.dob-calendar { width: fit-content; }
+.dob-calendar-input, .dob-calendar .flatpickr-input { display: none !important; }
 
 .dob-calendar .flatpickr-calendar {
-    box-shadow: 0 8px 25px rgba(2, 136, 209, 0.18);
-    border: 2px solid #b3e5fc;
-    border-radius: 12px;
+    box-shadow: var(--shadow-hover); border: 2px solid var(--border); border-radius: 12px;
 }
+
+[data-theme="dark"] .flatpickr-calendar { background: var(--card-bg) !important; color: var(--text) !important; border-color: var(--border) !important; }
+[data-theme="dark"] .flatpickr-day { color: var(--text) !important; }
+[data-theme="dark"] .flatpickr-day:hover, [data-theme="dark"] .flatpickr-day.selected { background: var(--accent) !important; color: #fff !important; border-color: var(--accent) !important; }
+[data-theme="dark"] .flatpickr-months, [data-theme="dark"] .flatpickr-month, [data-theme="dark"] .flatpickr-weekdays { background: var(--card-bg) !important; color: var(--text) !important; fill: var(--text) !important; }
+[data-theme="dark"] .flatpickr-monthDropdown-months, [data-theme="dark"] .cur-year { background: var(--card-bg) !important; color: var(--text) !important; }
+[data-theme="dark"] .flatpickr-prev-month svg, [data-theme="dark"] .flatpickr-next-month svg { fill: var(--text) !important; }
+[data-theme="dark"] .flatpickr-weekday { color: var(--accent-mid) !important; }
+[data-theme="dark"] .flatpickr-day.today { border-color: var(--accent) !important; }
+[data-theme="dark"] .flatpickr-day.flatpickr-disabled { color: var(--text-faint) !important; }
 
 #animalForm .submit-btn {
-    flex: 1;
-    background: linear-gradient(135deg, #29b6f6 0%, #0288d1 100%);
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    flex: 1; background: var(--btn-bg); color: var(--btn-text);
+    border: none; padding: 13px; border-radius: 10px;
+    font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.25s;
 }
-
-#animalForm .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(2, 136, 209, 0.4);
-}
+#animalForm .submit-btn:hover { background: var(--btn-bg-hover); transform: translateY(-1px); }
 
 #animalForm .cancel-btn {
-    flex: 1;
-    background: #e0e0e0;
-    color: #333;
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    flex: 1; background: var(--cancel-bg); color: var(--cancel-text);
+    border: none; padding: 13px; border-radius: 10px;
+    font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.25s;
 }
+#animalForm .cancel-btn:hover { background: var(--cancel-hover); transform: translateY(-1px); }
 
-#animalForm .cancel-btn:hover {
-    background: #d0d0d0;
-    transform: translateY(-2px);
-}
-
-#animalsList {
-    margin-top: 60px;
-}
-
-#list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
+#animalsList { margin-top: 56px; }
+#list { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 28px; }
 
 .animal-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: flex-start;
-    justify-content: space-between;
+    background: var(--card-bg); padding: 22px; border-radius: 14px;
+    box-shadow: var(--shadow); transition: all 0.3s;
+    display: flex; flex-direction: row; gap: 18px;
+    align-items: flex-start; justify-content: space-between;
+}
+.animal-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.animal-card-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.animal-card strong  { font-size: 18px; color: var(--accent); }
+.animal-description  { color: var(--text-soft); font-size: 13px; line-height: 1.5; }
+.animal-image { margin-top: 8px; }
+.animal-image img { max-width: 90px; max-height: 90px; border-radius: 8px; object-fit: cover; }
+.animal-actions { display: flex; flex-direction: column; gap: 8px; white-space: nowrap; }
+
+.animal-card button { padding: 9px 14px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.25s; font-size: 13px; }
+.animal-card .btn-edit   { background: #29b6f6; color: #fff; }
+.animal-card .btn-edit:hover   { background: #0288d1; transform: translateY(-1px); }
+.animal-card .btn-delete { background: #ef5350; color: #fff; }
+.animal-card .btn-delete:hover { background: #e53935; transform: translateY(-1px); }
+
+/* Messages */
+#messagesSection { margin-top: 56px; }
+#messagesList    { display: flex; flex-direction: column; gap: 18px; }
+
+.message-card {
+    background: var(--card-bg); padding: 22px; border-radius: 14px;
+    box-shadow: var(--shadow); transition: all 0.3s;
+    border-left: 4px solid var(--border);
+}
+.message-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.message-card.unread { border-left-color: var(--accent); background: var(--msg-unread-bg); }
+
+.message-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 10px; }
+.message-sender { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.message-sender strong { font-size: 17px; color: var(--accent); }
+.message-email  { color: var(--text-muted); font-size: 13px; }
+.message-phone  { color: var(--text-muted); font-size: 12px; }
+.message-meta   { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.message-date   { color: var(--text-faint); font-size: 12px; white-space: nowrap; }
+
+.badge-new {
+    background: linear-gradient(135deg, #29b6f6, #0288d1); color: #fff;
+    padding: 3px 9px; border-radius: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
 }
 
-.animal-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(2, 136, 209, 0.2);
-}
-
-.animal-card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.animal-card strong {
-    font-size: 20px;
-    color: #0288d1;
-}
-
-.animal-description {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 5px 0;
-}
-
-.animal-image {
-    margin-top: 10px;
-}
-
-.animal-image img {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.animal-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    white-space: nowrap;
-}
-
-.animal-card button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.animal-card .btn-edit {
-    background: #4fc3f7;
-    color: white;
-}
-
-.animal-card .btn-edit:hover {
-    background: #29b6f6;
-    transform: translateY(-2px);
-}
-
-.animal-card .btn-delete {
-    background: #ff6b6b;
-    color: white;
-}
-
-.animal-card .btn-delete:hover {
-    background: #ff5252;
-    transform: translateY(-2px);
-}
+.message-subject { color: var(--text-soft); font-size: 13px; margin-bottom: 9px; padding-bottom: 9px; border-bottom: 1px solid var(--divider); }
+.message-body    { color: var(--text); font-size: 14px; line-height: 1.6; margin-bottom: 14px; white-space: pre-wrap; }
+.message-actions { display: flex; gap: 9px; align-items: center; padding-top: 11px; border-top: 1px solid var(--divider); }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .admin-container {
-        padding: 0 16px;
-        margin: 40px auto;
-    }
-
-    .admin-container h1 {
-        font-size: 28px;
-        margin-bottom: 30px;
-    }
-
-    .admin-container h2 {
-        font-size: 22px;
-        margin-bottom: 20px;
-        margin-top: 30px;
-    }
-
-    #animalFormSection {
-        padding: 20px;
-        max-width: 100%;
-    }
-
-    #animalsList {
-        margin-top: 40px;
-    }
-
-    #list {
-        grid-template-columns: 1fr;
-    }
-
-    .animal-card {
-        flex-direction: column;
-        padding: 16px;
-        gap: 12px;
-    }
-
-    .animal-actions {
-        flex-direction: row;
-        width: 100%;
-    }
-
-    .animal-actions button {
-        flex: 1;
-    }
-
-    .dob-calendar {
-        width: 100%;
-    }
-
-    .message-header {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .message-actions {
-        flex-direction: column;
-    }
-
-    .message-card {
-        padding: 16px;
-    }
+    .admin-container { padding: 0 14px; margin: 40px auto; }
+    .admin-container h1 { font-size: 26px; margin-bottom: 28px; }
+    .admin-container h2 { font-size: 20px; margin-bottom: 18px; margin-top: 28px; }
+    #animalFormSection { padding: 18px; max-width: 100%; }
+    #list { grid-template-columns: 1fr; }
+    .animal-card { flex-direction: column; padding: 14px; gap: 10px; }
+    .animal-actions { flex-direction: row; width: 100%; }
+    .animal-actions button { flex: 1; }
+    .message-header { flex-direction: column; gap: 7px; }
+    .message-actions { flex-direction: column; }
+    .message-card { padding: 14px; }
 }
-
 @media (max-width: 480px) {
-    .admin-container h1 {
-        font-size: 24px;
-    }
-
-    #animalFormSection {
-        padding: 16px;
-    }
-
-    #animalForm .button-group {
-        flex-direction: column;
-    }
-
-    .status-select {
-        width: 100%;
-    }
-}
-
-/* ── Messages Section ── */
-#messagesSection {
-    margin-top: 60px;
-}
-
-#messagesList {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.message-card {
-    background: white;
-    padding: 24px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    border-left: 4px solid #e0e0e0;
-}
-
-.message-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(2, 136, 209, 0.15);
-}
-
-.message-card.unread {
-    border-left-color: #0288d1;
-    background: #f8fcff;
-}
-
-.message-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    gap: 12px;
-}
-
-.message-sender {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-}
-
-.message-sender strong {
-    font-size: 18px;
-    color: #0288d1;
-}
-
-.message-email {
-    color: #666;
-    font-size: 14px;
-}
-
-.message-phone {
-    color: #666;
-    font-size: 13px;
-}
-
-.message-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-.message-date {
-    color: #999;
-    font-size: 13px;
-    white-space: nowrap;
-}
-
-.badge-new {
-    background: linear-gradient(135deg, #29b6f6 0%, #0288d1 100%);
-    color: white;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.message-subject {
-    color: #555;
-    font-size: 14px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.message-body {
-    color: #444;
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 16px;
-    white-space: pre-wrap;
-}
-
-.message-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
+    .admin-container h1 { font-size: 22px; }
+    #animalFormSection  { padding: 14px; }
+    #animalForm .button-group { flex-direction: column; }
 }
