@@ -5,7 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 // ─── Init ────────────────────────────────────────────────────
 const firebaseConfig = {
@@ -21,7 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db   = getFirestore(app);
-
+export const storage = getStorage(app);
 
 // ─── Helpers ─────────────────────────────────────────────────
 function currentUID() {
@@ -30,17 +30,10 @@ function currentUID() {
   return u.uid;
 }
 
-// Convert image file to Base64 string (stored in Firestore, no Storage needed)
-function uploadImage(file) {
-  return new Promise((resolve, reject) => {
-    if (file.size > 500 * 1024) {
-      console.warn('Image is large (>500KB). Consider compressing it first.');
-    }
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+async function uploadImage(file) {
+  const storageRef = ref(storage, `animals/${Date.now()}-${file.name}`);
+  await uploadBytes(storageRef, file);
+  return await getDownloadURL(storageRef);
 }
 
 // ─── AUTH ─────────────────────────────────────────────────────
@@ -175,10 +168,24 @@ export async function submitApplication(animalId, message) {
     where('status', 'in', ['pending', 'reviewing'])
   ));
   if (!duplicate.empty) throw new Error('You already have an active application for this pet');
+  const [animalSnap, userSnap] = await Promise.all([
+    getDoc(doc(db, 'animals', animalId)),
+    getDoc(doc(db, 'users', uid))
+  ]);
+  const animal = animalSnap.data() || {};
+  const user   = userSnap.data()   || {};
   return await addDoc(collection(db, 'applications'), {
-    user_id: uid, animal_id: animalId,
-    message: message || '', status: 'pending',
-    created_at: serverTimestamp()
+    user_id:      uid,
+    animal_id:    animalId,
+    animal_name:  animal.name  || 'N/A',
+    animal_breed: animal.breed || '',
+    animal_image: animal.image || '',
+    user_name:    user.name    || 'N/A',
+    user_email:   user.email   || 'N/A',
+    user_phone:   user.phone   || '',
+    message:      message || '',
+    status:       'pending',
+    created_at:   serverTimestamp()
   });
 }
 
@@ -191,7 +198,17 @@ export async function getMyApplications() {
     orderBy('created_at', 'desc')
   );
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  return snap.docs.map(d => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      // fallbacks so profile page always has something to display
+      animal_name:  data.animal_name  || data.animal_id,
+      breed:        data.animal_breed || '',
+      image:        data.animal_image || ''
+    };
+  });
 }
 
 // Replaces GET /api/admin/applications  (admin only)
