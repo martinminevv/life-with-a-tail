@@ -13,7 +13,7 @@ async function updateAuthNav(firebaseUser) {
             navAuthLink.href = '#';
             navAuthLink.setAttribute('aria-label', 'Log out');
             navAuthLink.setAttribute('title', 'Log out');
-            navAuthLink.querySelector('.auth-user').src = 'images/logout.png';
+            navAuthLink.querySelector('.auth-user').src = '../images/logout.png';
             navAuthLink.querySelector('.auth-user').alt = 'Log out';
 
             navAuthLink.onclick = (e) => {
@@ -43,7 +43,7 @@ async function updateAuthNav(firebaseUser) {
                     adminBtn.setAttribute('aria-label', 'Admin Menu');
                     adminBtn.setAttribute('title', 'Admin Menu');
                     const adminImg = document.createElement('img');
-                    adminImg.src = 'images/admin.png';
+                    adminImg.src = '../images/admin.png';
                     adminImg.alt = 'Admin Menu';
                     adminBtn.appendChild(adminImg);
                     navAuth.insertBefore(adminBtn, navAuthLink);
@@ -55,7 +55,7 @@ async function updateAuthNav(firebaseUser) {
             navAuthLink.href = 'login.html';
             navAuthLink.setAttribute('aria-label', 'Log in');
             navAuthLink.setAttribute('title', 'Log in');
-            navAuthLink.querySelector('.auth-user').src = 'images/login.png';
+            navAuthLink.querySelector('.auth-user').src = '../images/login.png';
             navAuthLink.querySelector('.auth-user').alt = 'Log in';
             navAuthLink.onclick = null;
 

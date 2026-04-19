@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Живот с опашка</title>
-    <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+    <link rel="icon" href="../images/icon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -18,7 +18,7 @@
             </div>
             <div class="logo">
                 <a href="home.html" class="logo-link">
-                    <img src="images/logo.png" class="logo-img" alt="Живот с опашка лого">
+                    <img src="../images/logo.png" class="logo-img" alt="Живот с опашка лого">
                     <span data-translate="logo">Живот с опашка</span>
                 </a>
             </div>
@@ -31,7 +31,7 @@
             <div class="nav-auth">
               <button class="theme-toggle" onclick="toggleTheme()" title="Switch theme">🌙</button>  
               <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
-                    <img src="images/login.png" class="auth-user" alt="Log in">
+                    <img src="../images/login.png" class="auth-user" alt="Log in">
                 </a>
             </div>
         </nav>
@@ -105,7 +105,7 @@
       getAnimals, addAnimal, updateAnimal, deleteAnimal,
       getAllApplications, updateApplicationStatus, deleteApplication,
       getAllMessages, markMessageRead, deleteMessage
-    } from './firebase.js';
+    } from '../js/firebase.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // ── Guard: only allow admins ──────────────────────────────
@@ -397,9 +397,9 @@
     }
   </script>
 
-  <script src="theme-switcher.js"></script>
-  <script src="nav-responsive.js"></script>
-  <script type="module" src="auth-nav.js"></script>
-  <script src="language-switcher.js"></script>
+  <script src="../js/theme-switcher.js"></script>
+  <script src="../js/nav-responsive.js"></script>
+  <script type="module" src="../js/auth-nav.js"></script>
+  <script src="../js/language-switcher.js"></script>
 </body>
 </html>
