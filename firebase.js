@@ -161,13 +161,17 @@ export async function removeFavorite(animalId) {
 // Replaces POST /api/applications
 export async function submitApplication(animalId, message) {
   const uid = currentUID();
-  const duplicate = await getDocs(query(
+  // Check for duplicate without orderBy to avoid needing a composite index
+  const existingSnap = await getDocs(query(
     collection(db, 'applications'),
     where('user_id', '==', uid),
-    where('animal_id', '==', animalId),
-    where('status', 'in', ['pending', 'reviewing'])
+    where('animal_id', '==', animalId)
   ));
-  if (!duplicate.empty) throw new Error('You already have an active application for this pet');
+  const hasDuplicate = existingSnap.docs.some(d => {
+    const s = d.data().status;
+    return s === 'pending' || s === 'reviewing';
+  });
+  if (hasDuplicate) throw new Error('You already have an active application for this pet');
   const [animalSnap, userSnap] = await Promise.all([
     getDoc(doc(db, 'animals', animalId)),
     getDoc(doc(db, 'users', uid))
@@ -192,23 +196,30 @@ export async function submitApplication(animalId, message) {
 // Replaces GET /api/applications  (own applications)
 export async function getMyApplications() {
   const uid = currentUID();
+  // Note: combining where() + orderBy() needs a Firestore composite index.
+  // Sort in JS instead to avoid that requirement.
   const q = query(
     collection(db, 'applications'),
-    where('user_id', '==', uid),
-    orderBy('created_at', 'desc')
+    where('user_id', '==', uid)
   );
   const snap = await getDocs(q);
-  return snap.docs.map(d => {
+  const apps = snap.docs.map(d => {
     const data = d.data();
     return {
       id: d.id,
       ...data,
-      // fallbacks so profile page always has something to display
       animal_name:  data.animal_name  || data.animal_id,
-      breed:        data.animal_breed || '',
-      image:        data.animal_image || ''
+      breed:        data.animal_breed || data.breed || '',
+      image:        data.animal_image || data.image || ''
     };
   });
+  // Sort newest first in JS
+  apps.sort((a, b) => {
+    const aTime = a.created_at?.toMillis ? a.created_at.toMillis() : 0;
+    const bTime = b.created_at?.toMillis ? b.created_at.toMillis() : 0;
+    return bTime - aTime;
+  });
+  return apps;
 }
 
 // Replaces GET /api/admin/applications  (admin only)
