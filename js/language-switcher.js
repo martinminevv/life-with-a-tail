@@ -2,14 +2,14 @@
 const translations = {
     bg: {
         // Logo & Navigation
-        'logo': 'Живот с опашка',
+        'logo': 'Life with a Tail',
         'nav-home': 'Начало',
         'nav-adoption': 'Осинови',
         'nav-volunteer': 'Доброволчество',
         'nav-contact': 'Контакти',
         
         // Home Page - Hero Section
-        'hero-title': 'Живот с опашка',
+        'hero-title': 'Life with a Tail',
         'hero-subtitle': 'Намери своя опашат приятел',
         'hero-desc': 'Всеки домашен любимец заслуважа любящ дом',
         'hero-btn': 'Научи повече',
@@ -43,10 +43,10 @@ const translations = {
         
         // Home Page - Testimonials
         'testimonials-title': 'Отзиви',
-        'testimonial-text-1': '"Да осиновя животно в нужда беше най-доброто ми решение. Персоналът от "Живот с опашка" беше изключително любезен и професионален.',
+        'testimonial-text-1': '"Да осиновя животно в нужда беше най-доброто ми решение. Персоналът от "Life with a Tail" беше изключително любезен и професионален.',
         'testimonial-author-1': 'Иван Иванов',
         'testimonial-date-1': 'Осиновил през 2019',
-        'testimonial-text-2': '"Животът ми нямаше да е същия без най-добрия ми опашат приятел! Благодаря на "Живот с опашка" за тяхната отдаденост и помощ през целия процес на осиновяване."',
+        'testimonial-text-2': '"Животът ми нямаше да е същия без най-добрия ми опашат приятел! Благoдаря на "Life with a Tail" за тяхната отдаденost и помощ през целия процес на осинovяване."',
         'testimonial-author-2': 'Георги Петров',
         'testimonial-date-2': 'Осиновил през 2021',
         'testimonial-text-3': '"Процесът на осиновяване беше лесен и безпроблемен. Персоналът наистина се грижи за животните и им осигурява най-добрата грижа, която съм виждал в приют."',
@@ -84,7 +84,7 @@ const translations = {
         'modal-submit': 'Изпрати заявка',
         
         // Footer
-        'footer-copy': '© 2026 зооприют "Живот с опашка"',
+        'footer-copy': '© 2026 зооприют "Life with a Tail"',
         'footer-desc': 'Намираме вашия най-добър приятел',
         
         // Adoption Page
@@ -101,7 +101,7 @@ const translations = {
         'volunteer-title': 'Станете доброволец',
         'volunteer-subtitle': 'Помогнете на животно в нужда',
         'volunteer-why-title': 'Защо да доброволствате при нас?',
-        'volunteer-why-desc': 'Доброволчеството в "Живот с опашка" е преживяване, което ви позволява да направите щастливо някое животно. Независимо дали можете да отделите няколко часа седмично или само в уикендите, всеки вид помощ, която ни окажете, ни помага да осигурим по-добра грижа за нашите животни.',
+        'volunteer-why-desc': 'Доброволчеството в "Life with a Tail" е преживяване, което ви позволява да направите щастливо някое животно. Независимо дали можете да отделите няколко часа седмично или само в уикендите, всеки вид помощ, която ни окажете, ни помага да осигурим по-добра грижа за нашите животни.',
         'vol-stat-volunteers': 'Доброволци',
         'vol-stat-campaigns': 'Успешни кампании',
         'vol-stat-years': 'Години доброволчество',
@@ -324,7 +324,7 @@ const translations = {
         'admin-form-gender-female': 'Женско',
         'admin-form-image': 'Качи снимка',
         'admin-form-desc': 'Описание *',
-        'admin-form-save': 'Запази животно',
+        'admin-form-save': 'Запази',
         'admin-form-cancel': 'Отмени',
         'admin-list-title': 'Съществуващи животни',
 
@@ -350,17 +350,17 @@ const translations = {
         // Profile Page
         'profile-title': 'Моят Профил',
         'profile-member-since': 'Член от',
-        'profile-tab-info': 'Моята Информация',
+        'profile-tab-info': 'Моята информация',
         'profile-tab-favorites': 'Любими',
-        'profile-tab-applications': 'Кандидатури',
-        'profile-info-title': 'Лична Информация',
+        'profile-tab-applications': 'Заявки',
+        'profile-info-title': 'Моята информация',
         'profile-form-name': 'Пълно Име',
         'profile-form-email': 'Имейл Адрес',
         'profile-form-phone': 'Телефонен Номер',
         'profile-form-address': 'Адрес',
-        'profile-form-save': 'Запази Промените',
+        'profile-form-save': 'Запази промените',
         'profile-no-favorites': 'Все още нямате любими животни. Разгледайте нашите животни за осиновяване!',
-        'profile-no-applications': 'Все още нямате кандидатури за осиновяване.',
+        'profile-no-applications': 'Все още нямате заявки за осиновяване.',
         'profile-browse-link': 'Разгледай Животни',
         'profile-app-status': 'Статус',
         'profile-app-message': 'Съобщение',
@@ -370,7 +370,7 @@ const translations = {
         'profile-app-status-rejected': 'Отхвърлена',
 
         // Admin Applications
-        'admin-apps-title': 'Управление на Кандидатури',
+        'admin-apps-title': 'Управление на заявки за осиновяване',
         'admin-apps-status-pending': 'В изчакване',
         'admin-apps-status-approved': 'Одобрена',
         'admin-apps-status-rejected': 'Отхвърлена',

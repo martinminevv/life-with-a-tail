@@ -166,7 +166,7 @@ nav {
     gap: 16px;
 }
 
-.hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
+.hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; background: none; border: none; outline: none; padding: 0; }
 .hamburger span { width: 26px; height: 3px; background: var(--accent); border-radius: 3px; transition: all 0.3s; }
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
