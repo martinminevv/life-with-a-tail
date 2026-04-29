@@ -29,7 +29,7 @@
             </ul>
             <div class="nav-auth">
                 <a href="login.html" class="auth-icon" aria-label="Log in" title="Log in">
-                    <img src="images/login.png" class="auth-user" alt="Log in">
+                    <img src="../images/login.png" class="auth-user" alt="Log in">
                 </a>
             </div>
         </nav>
@@ -65,36 +65,32 @@
     <div class="auth-footer"><span data-translate="signup-have-account">Already have an account?</span> <a href="login.html" data-translate="signup-login-link">Log in</a></div>
   </main>
 
-  <script type="module">
-    import { signup } from '../js/firebase.js';
-
+  <script>
     const showError = (msg) => {
       const e = document.getElementById('error');
       e.textContent = msg || '';
       e.style.display = msg ? 'block' : 'none';
     };
 
-    function friendlyError(code) {
-      switch (code) {
-        case 'auth/email-already-in-use': return 'This email is already registered.';
-        case 'auth/invalid-email':        return 'Please enter a valid email address.';
-        case 'auth/weak-password':        return 'Password must be at least 6 characters.';
-        default:                          return 'Signup failed. Please try again.';
-      }
-    }
-
     document.getElementById('signupForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       showError('');
-      const name     = document.getElementById('name').value.trim();
-      const email    = document.getElementById('email').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       if (!email || !password) return showError('Please enter email and password.');
       try {
-        await signup(name, email, password);
-        window.location.href = 'profile.html';
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+          credentials: 'include'
+        });
+        const data = await res.json();
+        if (!res.ok) return showError(data.error || 'Signup failed');
+        window.location.href = '/profile.html';
       } catch (err) {
-        showError(friendlyError(err.code));
+        showError('Network error. Please try again.');
       }
     });
   </script>
