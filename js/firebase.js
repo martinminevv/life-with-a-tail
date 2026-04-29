@@ -1,13 +1,11 @@
-// ============================================================
-//  firebase.js  –  single file replacing the entire server.js
-// ============================================================
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
-
-// ─── Init ────────────────────────────────────────────────────
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCC4PJpWMeNvAbWrtBuWOK711U8B5Rfx9o",
   authDomain: "life-with-a-tail.firebaseapp.com",
@@ -15,13 +13,13 @@ const firebaseConfig = {
   projectId: "life-with-a-tail",
   storageBucket: "life-with-a-tail.firebasestorage.app",
   messagingSenderId: "906267126282",
-  appId: "1:906267126282:web:f03fd5c93a2bbaa31e8df3"
+  appId: "1:906267126282:web:04ec8a881638887b1e8df3",
+  measurementId: "G-8ZYENSF70B"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db   = getFirestore(app);
-export const storage = getStorage(app);
+const analytics = getAnalytics(app);
 
 // ─── Helpers ─────────────────────────────────────────────────
 function currentUID() {
