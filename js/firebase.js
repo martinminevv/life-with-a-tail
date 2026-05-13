@@ -30,10 +30,13 @@ function currentUID() {
   return u.uid;
 }
 
-async function uploadImage(file) {
-  const storageRef = ref(storage, `animals/${Date.now()}-${file.name}`);
-  await uploadBytes(storageRef, file);
-  return await getDownloadURL(storageRef);
+function uploadImage(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 // ─── AUTH ─────────────────────────────────────────────────────
