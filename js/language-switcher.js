@@ -313,8 +313,8 @@ const translations = {
         'login-signup-link': 'Регистрирай се',
         
         // Admin Page
-        'admin-title': 'Управление на животни',
-        'admin-form-title': 'Добави / Редактирай животно',
+        'admin-title': 'Управление на обяви',
+        'admin-form-title': 'Добави / Редактирай обява',
         'admin-form-name': 'Име *',
         'admin-form-breed': 'Порода *',
         'admin-form-age': 'Дата на раждане *',
@@ -326,7 +326,7 @@ const translations = {
         'admin-form-desc': 'Описание *',
         'admin-form-save': 'Запази',
         'admin-form-cancel': 'Отмени',
-        'admin-list-title': 'Съществуващи животни',
+        'admin-list-title': 'Съществуващи обяви',
 
         // Pet card labels
         'pet-label-name': 'Име',
