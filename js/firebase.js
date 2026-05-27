@@ -5,7 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
 
 // ─── Init ────────────────────────────────────────────────────
 const firebaseConfig = {
@@ -21,15 +21,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db   = getFirestore(app);
-export const storage = getStorage(app);
+
 
 // ─── Helpers ─────────────────────────────────────────────────
-function currentUID() {
-  const u = auth.currentUser;
-  if (!u) throw new Error('Not logged in');
-  return u.uid;
-}
-
 function uploadImage(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -38,6 +32,14 @@ function uploadImage(file) {
     reader.readAsDataURL(file);
   });
 }
+
+function currentUID() {
+  const u = auth.currentUser;
+  if (!u) throw new Error('Not logged in');
+  return u.uid;
+}
+
+
 
 // ─── AUTH ─────────────────────────────────────────────────────
 
